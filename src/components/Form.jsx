@@ -1,5 +1,23 @@
+import { useState, useEffect } from 'react'
 
 const Form = () => {
+    const [patient, setpatient] = useState({
+        petName: '',
+        ownerName: '',
+        email: '',
+        registerDate: '',
+        symptoms: ''
+    })
+
+    const handleChange = e => {
+        const { name , value } = e.target
+        setpatient(prevPatient => ({
+            ...prevPatient,
+            [name]: value
+        }))
+    }
+
+
     return (
         <div className='md:w-1/2 lg:w-2/5'>
             <h2 className='font-black text-3xl text-center'>Seguimiento Pacientes</h2>
@@ -9,7 +27,7 @@ const Form = () => {
                 <span className='text-indigo-600 font-bold'>Administralos</span>
             </p>
 
-            <form className='bg-white shadow-md rounded-lg py-10 px-5 mb-10' action="">
+            <form className='bg-white shadow-md rounded-lg py-10 px-5 mb-10'>
                 <div className='mb-5'>
                     <label htmlFor="petName" className='block text-gray-700 font-bold uppercase'>Nombre Mascota</label>
                     <input 
@@ -17,6 +35,9 @@ const Form = () => {
                         type="text"
                         placeholder='Nombre de la Mascota'
                         className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                        value={patient.pet}
+                        onChange={handleChange}
+                        name='petName'
                     />
                 </div>
                 <div className='mb-5'>
@@ -26,6 +47,9 @@ const Form = () => {
                         type="text"
                         placeholder='Nombre del Dueño'
                         className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                        value={patient.ownerName}
+                        onChange={handleChange}
+                        name='ownerName'
                     />
                 </div>
                 <div className='mb-5'>
@@ -35,6 +59,9 @@ const Form = () => {
                         type="email"
                         placeholder='Email de contacto'
                         className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                        value={patient.email}
+                        onChange={handleChange}
+                        name='email'
                     />
                 </div>
                 <div className='mb-5'>
@@ -43,6 +70,9 @@ const Form = () => {
                         id='registerDate'
                         type="date"
                         className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                        value={patient.registerDate}
+                        onChange={handleChange}
+                        name='registerDate'
                     />
                 </div>
                 <div className='mb-5'>
@@ -50,7 +80,10 @@ const Form = () => {
                     <textarea 
                         id="symptoms"
                         className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md resize-none'
-                        placeholder='Describe los Sintomas' 
+                        placeholder='Describe los Sintomas'
+                        value={patient.symptoms}
+                        onChange={handleChange}
+                        name='symptoms' 
                     />
                 </div>
                 <input 
