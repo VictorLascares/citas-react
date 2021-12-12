@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
+import Error from './Error'
 
-const Form = () => {
+const Form = ({setpatients, patients}) => {
     const [patient, setpatient] = useState({
         petName: '',
         ownerName: '',
@@ -8,6 +9,7 @@ const Form = () => {
         registerDate: '',
         symptoms: ''
     })
+    const [error, seterror] = useState(false)
 
     const handleChange = e => {
         const { name , value } = e.target
@@ -15,6 +17,28 @@ const Form = () => {
             ...prevPatient,
             [name]: value
         }))
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+
+        // Validación del formulario
+        if(Object.values(patient).includes('')){
+            seterror(true)
+            return
+        }
+        seterror(false)
+
+        setpatients([...patients, patient])
+
+        // Reiniciar el form
+        setpatient({
+            petName: '',
+            ownerName: '',
+            email: '',
+            registerDate: '',
+            symptoms: ''
+        })
     }
 
 
@@ -27,7 +51,8 @@ const Form = () => {
                 <span className='text-indigo-600 font-bold'>Administralos</span>
             </p>
 
-            <form className='bg-white shadow-md rounded-lg py-10 px-5 mb-10'>
+            <form className='bg-white shadow-md rounded-lg py-10 px-5 mb-10 mx-5' onSubmit={handleSubmit}>
+                {error && <Error message='Todos los campos son obligatorios'/>}
                 <div className='mb-5'>
                     <label htmlFor="petName" className='block text-gray-700 font-bold uppercase'>Nombre Mascota</label>
                     <input 
@@ -35,7 +60,7 @@ const Form = () => {
                         type="text"
                         placeholder='Nombre de la Mascota'
                         className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                        value={patient.pet}
+                        value={patient.petName}
                         onChange={handleChange}
                         name='petName'
                     />
