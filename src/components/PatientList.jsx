@@ -11,6 +11,7 @@ export const PatientList = ({patients}) => {
 
             {patients.map((element) => (
                 <Patient 
+                    key={element.id}
                     patient={element}
                 />
             ))}

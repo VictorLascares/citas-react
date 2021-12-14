@@ -11,6 +11,12 @@ const Form = ({setpatients, patients}) => {
     })
     const [error, seterror] = useState(false)
 
+    const generateId = () => {
+        const random = Math.random().toString(36).substring(2)
+        const date = Date.now().toString(36)
+        return random + date
+    }
+
     const handleChange = e => {
         const { name , value } = e.target
         setpatient(prevPatient => ({
@@ -29,6 +35,7 @@ const Form = ({setpatients, patients}) => {
         }
         seterror(false)
 
+        patient['id'] = generateId()
         setpatients([...patients, patient])
 
         // Reiniciar el form
@@ -37,7 +44,7 @@ const Form = ({setpatients, patients}) => {
             ownerName: '',
             email: '',
             registerDate: '',
-            symptoms: ''
+            symptoms: '',
         })
     }
 
