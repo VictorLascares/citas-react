@@ -5,6 +5,7 @@ import PatientList from "./PatientList"
 
 function App() {
   const [patients, setpatients] = useState([])
+  const [patient, setpatient] = useState({})
 
   return (
     <div className="container mx-auto mt-20">
@@ -13,9 +14,11 @@ function App() {
         <Form
           setpatients = {setpatients}
           patients = {patients}
+          patientEdit = {patient}
         />
         <PatientList
           patients={patients}
+          setPatient={setpatient}
         />
       </div>
     </div>

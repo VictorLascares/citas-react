@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Error from './Error'
 
-const Form = ({setpatients, patients}) => {
+const Form = ({setpatients, patients, patientEdit}) => {
     const [patient, setpatient] = useState({
         petName: '',
         ownerName: '',
@@ -10,6 +10,12 @@ const Form = ({setpatients, patients}) => {
         symptoms: ''
     })
     const [error, seterror] = useState(false)
+
+    useEffect(() => {
+        if(Object.keys(patientEdit).length > 0){
+            setpatient(patientEdit)
+        }
+    }, [patientEdit])
 
     const generateId = () => {
         const random = Math.random().toString(36).substring(2)
@@ -35,8 +41,18 @@ const Form = ({setpatients, patients}) => {
         }
         seterror(false)
 
-        patient['id'] = generateId()
-        setpatients([...patients, patient])
+        
+        if (patient.id) {
+            // Editando el Registro
+            console.log(patient);
+            const updatedPatients = patients.map( patientState => patientState.id === patient.id ? patient : patientState)
+
+            setpatients(updatedPatients)
+        } else {
+            // Nuevo registro
+            patient['id'] = generateId()
+            setpatients([...patients, patient])
+        }
 
         // Reiniciar el form
         setpatient({
@@ -108,7 +124,7 @@ const Form = ({setpatients, patients}) => {
                     />
                 </div>
                 <div className='mb-5'>
-                    <label htmlFor="symptoms" className='block text-gray-700 font-bold uppercase'>Fecha de Registro</label>
+                    <label htmlFor="symptoms" className='block text-gray-700 font-bold uppercase'>Sintomas</label>
                     <textarea 
                         id="symptoms"
                         className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md resize-none'
@@ -121,7 +137,7 @@ const Form = ({setpatients, patients}) => {
                 <input 
                     type="submit"
                     className='bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:cursor-pointer hover:bg-indigo-400 transition-colors'
-                    value="Agregar Paciente"
+                    value={ patient.id ? 'Editar Paciente' : 'Agregar Paciente'}
                 />
             </form>
         </div>
