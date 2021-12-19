@@ -7,6 +7,11 @@ function App() {
   const [patients, setpatients] = useState([])
   const [patient, setpatient] = useState({})
 
+  const deletePatient = id => {
+    const updatedPatients = patients.filter(element => element.id !== id)
+    setpatients(updatedPatients)
+  }
+
   return (
     <div className="container mx-auto mt-20">
       <Header/>
@@ -20,6 +25,7 @@ function App() {
         <PatientList
           patients={patients}
           setPatient={setpatient}
+          deletePatient={deletePatient}
         />
       </div>
     </div>
