@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Error from './Error'
 
-const Form = ({setpatients, patients, patientEdit}) => {
+const Form = ({setpatients, patients, patientEdit, setPatientEdit}) => {
     const [patient, setpatient] = useState({
         petName: '',
         ownerName: '',
@@ -44,10 +44,10 @@ const Form = ({setpatients, patients, patientEdit}) => {
         
         if (patient.id) {
             // Editando el Registro
-            console.log(patient);
             const updatedPatients = patients.map( patientState => patientState.id === patient.id ? patient : patientState)
 
             setpatients(updatedPatients)
+            setPatientEdit({})
         } else {
             // Nuevo registro
             patient['id'] = generateId()

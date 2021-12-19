@@ -15,6 +15,7 @@ function App() {
           setpatients = {setpatients}
           patients = {patients}
           patientEdit = {patient}
+          setPatientEdit = {setpatient}
         />
         <PatientList
           patients={patients}
